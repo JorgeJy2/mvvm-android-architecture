@@ -18,6 +18,7 @@ class CouponDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_coupon_detail)
         position = intent.getIntExtra("POSITION", 1)
         setupBindings(savedInstanceState)

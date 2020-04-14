@@ -19,11 +19,12 @@ class Coupon(couponJson: JsonObject?) : Serializable {
     lateinit var website: String
     lateinit var endDate: String
     lateinit var url: String
+    lateinit var store: String
 
     init {
         try {
             id                  = couponJson!!.get(ID).asString
-            imageUrl           = couponJson!!.get(IMAGE_URL).asString
+            imageUrl           =  getPathImg(couponJson!!.get(IMAGE_URL).asString)
             title               = couponJson!!.get(TITLE).asString
             descriptionShort    = chunkWords(couponJson!!.get(DESCRIPTION_SHORT).asString, ' ', 5)
             category            = chunkWords(couponJson!!.get(CATEGORY).asString, ',', 1)
@@ -32,6 +33,7 @@ class Coupon(couponJson: JsonObject?) : Serializable {
             website             = couponJson!!.get(WEBSITE).asString
             endDate             = getFormatDate(couponJson!!.get(END_DATE).asString)
             url                 = couponJson!!.get(URL).asString
+            store               = onylNameStore(couponJson!!.get(STORE).asString)
         }catch (e: Exception){
             e.printStackTrace()
         }
@@ -50,6 +52,7 @@ class Coupon(couponJson: JsonObject?) : Serializable {
         private val WEBSITE             = "store"
         private val END_DATE            = "end_date"
         private val URL                 = "url"
+        private val STORE               = "store"
     }
 
     private fun getFormatDate(dateCoupon:String):String {
@@ -67,20 +70,39 @@ class Coupon(couponJson: JsonObject?) : Serializable {
     }
 
 
-    private fun chunkWords(string: String, delimiter: Char, quantity: Int): String {
+    private fun chunkWords(string: String, delimiter: Char,quantity: Int): String {
         val words = string.split(delimiter)
-        var newString: String = ""
+        var lengthWords= 0
+        lengthWords = if (quantity >= words.size)
+            words.size -1
+        else
+            quantity - 1
 
-        for (i in 0..quantity){
-            newString += words.get(i) + " "
+        var newString: String = ""
+        for (i in 0..lengthWords){
+            newString += words[i] + " "
         }
 
         return newString
     }
 
+    private fun getPathImg(path:String): String {
+        if(path.isEmpty()){
+            return "https://thumbs.dreamstime.com/b/upset-magnifying-glass-cute-not-found-symbol-unsuccessful-s-upset-magnifying-glass-cute-not-found-symbol-unsuccessful-122205900.jpg"
+        }
+        return path
+    }
+
+    private  fun onylNameStore(nameStrore: String): String {
+        val names = nameStrore.split(".")
+        return names[0]
+    }
+
     override fun toString(): String {
         return "Coupon(id='$id', title='$title')"
     }
+
+
 
 
 }
