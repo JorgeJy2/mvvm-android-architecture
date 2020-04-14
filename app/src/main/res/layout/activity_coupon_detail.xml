@@ -43,7 +43,7 @@
                 app:ticketElevation="10dp"
                 app:ticketOrientation="horizontal"
                 app:ticketScallopPositionPercent="70"
-                app:ticketScallopRadius="30dp"
+                app:ticketScallopRadius="20dp"
                 app:ticketShowBorder="false"
                 app:ticketShowDivider="true"
                 app:ticketCornerType="rounded"
@@ -67,10 +67,9 @@
                     android:id="@+id/imgCouponDetail"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     app:imageUrl="@{model.getCouponAt(position).imageUrl}"
                     app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline9"
                     tools:srcCompat="@tools:sample/avatars[14]" />
@@ -81,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintGuide_percent="0.5"
+                    app:layout_constraintGuide_percent="0.4"
                     app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -114,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintGuide_begin="32dp"
+                    app:layout_constraintGuide_begin="50dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -131,13 +130,17 @@
 
             <TextView
                     android:id="@+id/tvShopName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+
                     android:text="@{model.getCouponAt(position).store}"
                     android:textAllCaps="true"
                     android:textSize="18sp"
                     android:textStyle="bold"
-
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
                     app:layout_constraintTop_toTopOf="@+id/guideline9" />
@@ -152,9 +155,11 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:text="@{model.getCouponAt(position).title}"
+                    android:textAlignment="textEnd"
                     android:textColor="#555555"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline11"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
                     app:layout_constraintTop_toBottomOf="@+id/tvShopName" />
 
@@ -162,23 +167,24 @@
                     android:id="@+id/tvOffert"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
                     android:text="@{model.getCouponAt(position).description}"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
                     app:layout_constraintStart_toStartOf="@+id/guideline7"
-                    app:layout_constraintTop_toBottomOf="@+id/imgCouponDetail" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvTextOffer" />
 
             <TextView
                     android:id="@+id/tvDateEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="32dp"
                     android:text="@{`Valid until ` +model.getCouponAt(position).endDate}"
                     app:layout_constraintBottom_toTopOf="@+id/guideline10"
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -199,6 +205,62 @@
                     app:layout_constraintBottom_toTopOf="@+id/tvDateEnd"
                     app:layout_constraintEnd_toStartOf="@+id/guideline8"
                     app:layout_constraintStart_toStartOf="@+id/guideline7" />
+
+            <TextView
+                    android:id="@+id/tvTermsAndConditions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:text="@{model.getCouponAt(position).termsAndConditions}"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline7"
+                    app:layout_constraintTop_toBottomOf="@+id/tvOffert" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintGuide_percent=".70"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                    android:id="@+id/x"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:text="@{model.getCouponAt(position).offerValue}"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline11"
+                    app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+            <TextView
+                    android:id="@+id/tvTextOffer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:text="@{model.getCouponAt(position).descriptionShort}"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline7"
+                    app:layout_constraintTop_toBottomOf="@+id/imgCouponDetail" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

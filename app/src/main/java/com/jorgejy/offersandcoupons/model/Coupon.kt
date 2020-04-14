@@ -20,13 +20,15 @@ class Coupon(couponJson: JsonObject?) : Serializable {
     lateinit var endDate: String
     lateinit var url: String
     lateinit var store: String
+    lateinit var termsAndConditions: String
+    lateinit var offerValue: String;
 
     init {
         try {
             id                  = couponJson!!.get(ID).asString
             imageUrl           =  getPathImg(couponJson!!.get(IMAGE_URL).asString)
             title               = couponJson!!.get(TITLE).asString
-            descriptionShort    = chunkWords(couponJson!!.get(DESCRIPTION_SHORT).asString, ' ', 5)
+            descriptionShort    = couponJson!!.get(DESCRIPTION_SHORT).asString
             category            = chunkWords(couponJson!!.get(CATEGORY).asString, ',', 1)
             description         = couponJson!!.get(DESCRIPTION).asString
             offer               = couponJson!!.get(OFFER).asString
@@ -34,6 +36,8 @@ class Coupon(couponJson: JsonObject?) : Serializable {
             endDate             = getFormatDate(couponJson!!.get(END_DATE).asString)
             url                 = couponJson!!.get(URL).asString
             store               = onylNameStore(couponJson!!.get(STORE).asString)
+            termsAndConditions  = couponJson!!.get(TERMS_CONDITIONS).asString
+            offerValue  = couponJson!!.get(OFFER_VALUE).asString
         }catch (e: Exception){
             e.printStackTrace()
         }
@@ -53,6 +57,8 @@ class Coupon(couponJson: JsonObject?) : Serializable {
         private val END_DATE            = "end_date"
         private val URL                 = "url"
         private val STORE               = "store"
+        private val TERMS_CONDITIONS    = "terms_and_conditions"
+        private val OFFER_VALUE         = "offer_value"
     }
 
     private fun getFormatDate(dateCoupon:String):String {
